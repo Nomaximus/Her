@@ -78,7 +78,7 @@ bgMusic.volume = volumeSlider.value;
 // ==========================================
 const playlist = [
     "Secret\\Music\\Cas1.mp3",
-    "Secret\\Music\\arungi.mp3"
+    "Secret\\Music\\Arungi.mp3"
 ];
 
 // Check memory to see which track was playing last, default to 0
