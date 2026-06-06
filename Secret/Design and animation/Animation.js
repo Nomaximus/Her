@@ -58,6 +58,7 @@ setInterval(createFloatingLyric, 3500);
 // ==========================================
 const bgMusic = document.getElementById('bg-music');
 const playPauseBtn = document.getElementById('play-pause-btn');
+const nextBtn = document.getElementById('next-btn'); // <-- Added Next Button
 const volumeSlider = document.getElementById('volume-slider');
 const entryScreen = document.getElementById('entry-screen');
 const passwordInput = document.getElementById('site-password');
@@ -71,6 +72,26 @@ const SECRET_PASSWORD = "101224"; // Set your passcode
 const UNLOCK_DATE = new Date("June 7, 2026 00:00:00").getTime(); 
 
 bgMusic.volume = volumeSlider.value;
+
+// ==========================================
+// Playlist Initialization
+// ==========================================
+const playlist = [
+    "Secret\\Music\\Cas1.mp3",
+    "Secret\\Music\\arungi.mp3"
+];
+
+// Check memory to see which track was playing last, default to 0
+let currentTrack = parseInt(localStorage.getItem('currentTrack')) || 0;
+
+// Function to load a specific track
+function loadTrack(index) {
+    bgMusic.src = playlist[index];
+    localStorage.setItem('currentTrack', index);
+}
+
+// Load the correct track immediately before checking the timeline!
+loadTrack(currentTrack);
 
 // Only lock the scrollbar if the entry screen exists on this page
 if (entryScreen) {
@@ -208,6 +229,10 @@ else {
     }
 }
 
+// ==========================================
+// Audio Controls (Play, Pause, Next)
+// ==========================================
+
 // Play / Pause Toggle Button
 playPauseBtn.addEventListener('click', () => {
     if (bgMusic.paused) {
@@ -217,6 +242,30 @@ playPauseBtn.addEventListener('click', () => {
         bgMusic.pause();
         playPauseBtn.innerText = 'play.';
     }
+});
+
+// Next Button Click Event
+if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+        currentTrack = (currentTrack + 1) % playlist.length; 
+        loadTrack(currentTrack);
+        
+        let playPromise = bgMusic.play();
+        if (playPromise !== undefined) {
+            playPromise.then(() => {
+                playPauseBtn.innerText = 'pause.';
+            }).catch(error => console.log("Playback prevented"));
+        }
+    });
+}
+
+// Auto-play the next song when the current one finishes naturally
+bgMusic.addEventListener('ended', () => {
+    currentTrack = (currentTrack + 1) % playlist.length;
+    loadTrack(currentTrack);
+    bgMusic.play().then(() => {
+        playPauseBtn.innerText = 'pause.';
+    });
 });
 
 // Update volume slider
@@ -236,6 +285,9 @@ setInterval(() => {
     }
 }, 500); 
 
+// ==========================================
+// Gallery Video Ducking
+// ==========================================
 const galleryItems = document.querySelectorAll('.gallery-item');
 
 galleryItems.forEach(item => {
