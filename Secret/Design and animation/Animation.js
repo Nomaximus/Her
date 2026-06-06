@@ -67,7 +67,7 @@ const lockStatus = document.getElementById('lock-status');
 const lockControls = document.getElementById('lock-controls');
 
 // --- CONFIGURATION ---
-const SECRET_PASSWORD = "3011"; // Set your passcode
+const SECRET_PASSWORD = "101224"; // Set your passcode
 const UNLOCK_DATE = new Date("June 7, 2026 00:00:00").getTime(); 
 
 bgMusic.volume = volumeSlider.value;
