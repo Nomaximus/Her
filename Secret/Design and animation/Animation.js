@@ -154,9 +154,9 @@ else {
     
     // === SECURITY KICK-OUT LOGIC ===
     // If they are on Letters.html or Gallery.html but haven't unlocked the site yet, 
-    // instantly kick them back to Index.html!
+    // instantly kick them back to index.html!
     if (!entryScreen) {
-        window.location.href = 'Index.html';
+        window.location.href = 'index.html';
     } 
     
     // === INDEX PAGE LOCK LOGIC ===
