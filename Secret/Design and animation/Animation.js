@@ -140,7 +140,7 @@ if (isUnlocked && new Date().getTime() >= UNLOCK_DATE) {
                 if (passwordInput) passwordInput.style.display = 'none';
                 if (lockControls) lockControls.style.display = 'flex';
                 
-                if (lockStatus) lockStatus.innerText = "welcome back.";
+                if (lockStatus) lockStatus.innerText = "You don deserve this effort from me.";
                 if (entryMessage) entryMessage.innerText = "click anywhere to resume";
                 entryScreen.addEventListener('click', letUserIn);
             } else {
@@ -173,8 +173,8 @@ else {
             const distance = UNLOCK_DATE - now;
 
             if (distance <= 0) {
-                countdownElement.innerText = "Hint: Our first time talking with each other.";
-                if (lockStatus) lockStatus.innerText = "welcome.";
+                countdownElement.innerText = "Hint: no...";
+                if (lockStatus) lockStatus.innerText = "You don deserve this from me.";
                 if (lockControls) lockControls.style.display = 'flex'; 
                 return true; 
             } else {
